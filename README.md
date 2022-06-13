@@ -1,5 +1,7 @@
 # OOAD
 
+Our Domain in "Music" for now.
+
 Current Tasks
 
 - Think of a team Name
