@@ -8,7 +8,7 @@ Current Tasks
 - Create Prelimanary report
 - Create Functonal/Non Functional Diagrams 
 - Create UML Diagrams
-	- UML
+	- Use Cases
 	- Sequence
 	- Class
 	- Project Life Cycle
