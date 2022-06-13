@@ -1,0 +1,25 @@
+Initial Team Division (Subject to change)
+
+Front End
+
+- Manan Dalal - C
+- Yash Shingvi
+
+Back End
+
+- Namrata Thaker - C
+- Fenil Godhani
+- Manan Dalal
+
+Web Scraping
+
+- Yash Shingvi - C
+- Lipi Patel
+- Namrata Thaker
+
+UML and Documentation
+
+- Lipi Patel - C
+- Aakash Ramani
+- Nishant Ramani
+- Nischal 
