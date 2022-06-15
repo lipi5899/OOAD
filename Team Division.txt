@@ -1,15 +1,14 @@
-
 Initial Team Division (Subject to change)
 
 Front End
 
 - Manan Dalal - C
-- Yash Shingvi
+- Yash Kolhe
+- Nischal Sudeep
 
 Back End
 
 - Namrata Thaker - C
-- Fenil Godhani
 - Manan Dalal
 
 Web Scraping
@@ -17,10 +16,12 @@ Web Scraping
 - Yash Shingvi - C
 - Lipi Patel
 - Namrata Thaker
+- Fenil Godhani
 
 UML and Documentation
 
 - Lipi Patel - C
 - Aakash Ramani
 - Nishant Ramani
-- Nischal 
+- Fenil Godhani
+- Yash Kolhe
