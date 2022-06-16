@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Container } from 'react-bootstrap'
-import { Button, Input } from 'antd';
+import { Container, Button } from 'react-bootstrap'
+import { Input } from 'antd';
 import { useNavigate } from 'react-router';
 
 import './Home.css'
@@ -34,9 +34,9 @@ const Home = () => {
 
             <div className='ButtonContainer my-2'>
                <Button 
-                    type="primary" 
+                    variant='outline-primary' 
                     onClick={ onSearchClick }
-                    size="large">
+                    size="lg" className='ButtonHome'>
                         Search
                 </Button>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button, Input } from 'antd';   
 import ResultList from '../../components/ResultList/ResultList';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import "./SearchResult.css"
 import Logo from '../../assests/logo1.png'
 import axios from 'axios'
@@ -10,6 +10,7 @@ import Server from  '../../resources/sources'
 
 const SearchResult = (props) => {
     const location = useLocation()
+    const navigate = useNavigate()
     const [ search, setSearch ] = useState(location.state.val)
     const [ results, setResults ] = useState([])
 
@@ -17,7 +18,6 @@ const SearchResult = (props) => {
         axios
             .get(Server.baseURL + '/links')
             .then(res => {
-                console.log(res.data)
                 setResults(res.data)
             })
             .catch(err => console.log(err))
@@ -33,10 +33,15 @@ const SearchResult = (props) => {
     const textValueChange = (event) => {
         setSearch(event.target.value)
     }  
+
+    const goHome = () => {
+        navigate("/", { replace: true })
+    }
+
     return (
     <Container fluid>
         <div className='SearchTop'>
-            <img src={ Logo } alt="Logo" className="Logo" />
+            <img src={ Logo } alt="Logo" className="Logo" onClick={ goHome } />
             <Input 
                 placeholder='Search Here' 
                 value={ search } 
