@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router';
 import ResultList from '../../components/ResultList/ResultList';
 
 const SearchResult = (props) => {
-    
-    
-
     const [ search, setSearch ] = useState('')
     const navigate = useNavigate()
 
