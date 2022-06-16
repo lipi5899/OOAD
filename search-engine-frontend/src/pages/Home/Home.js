@@ -3,12 +3,12 @@ import { Container } from 'react-bootstrap'
 import { Button, Input } from 'antd';
 import { useNavigate } from 'react-router';
 
-const Home = (props) => {
+const Home = () => {
     const [ search, setSearch ] = useState('')
     const navigate = useNavigate()
 
     const onSearchClick = () => {
-        navigate("/Searchresult", { replace: true })
+        navigate("/result", { replace: true, state: search })
     }
 
     const textValueChange = (event) => {
