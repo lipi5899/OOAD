@@ -1,12 +1,12 @@
 {
-  "name": "Atlantic Hotel",
+  "name": "Tech Tunes",
   "version": "1.0.0",
   "description": "Website to book rooms and view rooms availability",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },
-  "author": "Dhruvi Shah, Manan Dalal, Lipi Patel",
+  "author": "Manan Dalal",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

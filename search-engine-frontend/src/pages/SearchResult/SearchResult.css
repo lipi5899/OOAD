@@ -1,8 +1,12 @@
 .SearchTop {
-    padding: 30px 90px;
+    padding: 50px 90px 0px 90px;
     display: flex;
     justify-content: flex-start;
-    gap: 30px;
+    gap: 20px;
+}
+
+.ListContainer {
+    padding: 30px 120px
 }
 
 .Input {
@@ -18,6 +22,8 @@
 }
 
 .Button {
-    margin-top: 20px;
     margin-left: -20px;
+    min-height: 50px;
+    cursor: pointer;
+    width: 120px;
 }

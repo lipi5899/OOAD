@@ -5,17 +5,29 @@ import ResultList from '../../components/ResultList/ResultList';
 import { useLocation } from 'react-router';
 import "./SearchResult.css"
 import Logo from '../../assests/logo1.png'
+import axios from 'axios'
+import Server from  '../../resources/sources'
 
 const SearchResult = (props) => {
     const location = useLocation()
     const [ search, setSearch ] = useState(location.state.val)
+    const [ results, setResults ] = useState([])
 
     useEffect(() => {
-      console.log("Send request to backend")
+        axios
+            .get(Server.baseURL + '/links')
+            .then(res => {
+                console.log(res.data)
+                setResults(res.data)
+            })
+            .catch(err => console.log(err))
     }, [location])
 
     const onSearchClick = () => {
-        console.log("Send request to backend") 
+        axios
+            .get(Server.baseURL + '/links')
+            .then(res => setResults(res.data))
+            .catch(err => console.log(err))
     }
 
     const textValueChange = (event) => {
@@ -34,11 +46,17 @@ const SearchResult = (props) => {
             <Button 
                 type="primary" 
                 onClick={ onSearchClick }
-                
-                >Search</Button>
+                className="Button">
+                    Search
+            </Button>
         </div>
 
-        <ResultList />
+        <div style={{ padding: '20px 60px' }}> <hr /></div>
+        
+        <div className='ListContainer'>
+            <ResultList links = { results }/>
+        </div>
+        
     </Container>
     )
 }

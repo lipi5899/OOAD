@@ -3,9 +3,9 @@
     padding: 20px 200px;
 }
 
-.Logo  {
-    width: 400px;
-    height: 400px;
+.LogoHome  {
+    width: 300px;
+    height: 300px;
 }
 
 .LogoContainer, .ButtonContainer {
@@ -17,7 +17,7 @@
     max-width: 700px;
 }
 
-.Button {
+.ButtonHome {
+    cursor: pointer;
     width: 150px;
-
 }

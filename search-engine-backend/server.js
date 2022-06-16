@@ -5,14 +5,9 @@ const session = require('express-session');
 const mongoDB = require('./mongoDBClient');
 const path = require('path');
 
-
 const links = require('./routes/links');
-console.log("hello")
-const { Console } = require('console');
-
 
 const app = express();
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +28,6 @@ app.use(function(req, res, next){
   next();
 });
 
-
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -51,9 +45,8 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
-console.log("heloo")
-app.use('/links', links);
 
+app.use('/links', links);
 
 app.use('/', links);
 app.use((req, res, next) => {

@@ -21,7 +21,7 @@ const Home = () => {
     return (
         <Container className='Home'>
             <div className='LogoContainer'>
-                <img src={ Logo } alt="Logo" className="Logo" />
+                <img src={ Logo } alt="Logo" className="LogoHome" />
             </div>
             
             <div className='LogoContainer'>
@@ -35,7 +35,8 @@ const Home = () => {
             <div className='ButtonContainer my-2'>
                <Button 
                     type="primary" 
-                    onClick={ onSearchClick }>
+                    onClick={ onSearchClick }
+                    size="large">
                         Search
                 </Button>
             </div>
