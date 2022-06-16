@@ -3,12 +3,15 @@ import { Container } from 'react-bootstrap'
 import { Button, Input } from 'antd';
 import { useNavigate } from 'react-router';
 
+import './Home.css'
+import Logo from '../../assests/logo1.png'
+
 const Home = () => {
     const [ search, setSearch ] = useState('')
     const navigate = useNavigate()
 
     const onSearchClick = () => {
-        navigate("/result", { replace: true, state: search })
+        navigate("/result", { replace: true, state: { val: search }})
     }
 
     const textValueChange = (event) => {
@@ -16,11 +19,27 @@ const Home = () => {
     }
 
     return (
-        <div className={ Container }>
-            <h1>Name of the app</h1>
-            <Input placeholder='Search Here' value={ search } onChange={ textValueChange } />
-            <Button type="primary" onClick={ onSearchClick }>Search</Button>
-        </div>
+        <Container className='Home'>
+            <div className='LogoContainer'>
+                <img src={ Logo } alt="Logo" className="Logo" />
+            </div>
+            
+            <div className='LogoContainer'>
+                <Input 
+                    placeholder='Search Here' 
+                    value={ search } 
+                    onChange={ textValueChange } 
+                    className="Input" />
+            </div>
+
+            <div className='ButtonContainer my-2'>
+               <Button 
+                    type="primary" 
+                    onClick={ onSearchClick }>
+                        Search
+                </Button>
+            </div>
+        </Container>
     )
 }
 

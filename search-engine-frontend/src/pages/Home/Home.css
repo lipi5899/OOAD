@@ -1,0 +1,23 @@
+.Home {
+    display: block;
+    padding: 20px 200px;
+}
+
+.Logo  {
+    width: 400px;
+    height: 400px;
+}
+
+.LogoContainer, .ButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.Input {
+    max-width: 700px;
+}
+
+.Button {
+    width: 150px;
+
+}

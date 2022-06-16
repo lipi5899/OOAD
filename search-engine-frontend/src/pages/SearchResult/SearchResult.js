@@ -1,27 +1,45 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button, Input } from 'antd';   
-import { useNavigate } from 'react-router';
 import ResultList from '../../components/ResultList/ResultList';
+import { useLocation } from 'react-router';
+import "./SearchResult.css"
+import Logo from '../../assests/logo1.png'
 
 const SearchResult = (props) => {
-    const [ search, setSearch ] = useState('')
-    const navigate = useNavigate()
+    const location = useLocation()
+    const [ search, setSearch ] = useState(location.state.val)
+
+    useEffect(() => {
+      console.log("Send request to backend")
+    }, [location])
 
     const onSearchClick = () => {
-        navigate("/result", { replace: true })
+        console.log("Send request to backend") 
     }
 
     const textValueChange = (event) => {
         setSearch(event.target.value)
     }  
     return (
-    <div className={ Container }>
-        <p>Logo</p>
-        <Input placeholder='Search Here' value={ search } onChange={ textValueChange } />
-        <Button type="primary" onClick={ onSearchClick }>Search</Button>
+    <Container fluid>
+        <div className='SearchTop'>
+            <img src={ Logo } alt="Logo" className="Logo" />
+            <Input 
+                placeholder='Search Here' 
+                value={ search } 
+                onChange={ textValueChange } 
+                className="Input"/>
+        
+            <Button 
+                type="primary" 
+                onClick={ onSearchClick }
+                
+                >Search</Button>
+        </div>
+
         <ResultList />
-    </div>
+    </Container>
     )
 }
 
