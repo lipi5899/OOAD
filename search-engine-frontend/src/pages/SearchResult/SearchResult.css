@@ -28,3 +28,16 @@
     cursor: pointer;
     width: 120px;
 }
+
+.ResultsPerPage {
+    display: flex;
+    justify-content: right;
+    margin-top: -30px;
+}
+
+.SelectResults {
+    max-width: 70px;
+    margin-top: -25px;
+    max-height: 50px;
+    margin-left: 10px;
+}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Form } from 'react-bootstrap' 
 import { Button, Input } from 'antd';   
-import ResultList from '../../components/ResultList/ResultList';
 import { useLocation, useNavigate } from 'react-router';
+
+import ResultList from '../../components/ResultList/ResultList';
+import Pagination from '../../components/Pagination/Pagination'
 import "./SearchResult.css"
 import Logo from '../../assests/logo1.png'
 import axios from 'axios'
@@ -12,7 +14,9 @@ const SearchResult = (props) => {
     const location = useLocation()
     const navigate = useNavigate()
     const [ search, setSearch ] = useState(location.state.val)
+    const [ resultsPerPage, setResultsPerPage] = useState(5)
     const [ results, setResults ] = useState([])
+    const [ currentResults, setCurrentResults ] = useState([])
 
     useEffect(() => {
         axios
@@ -37,7 +41,11 @@ const SearchResult = (props) => {
     const goHome = () => {
         navigate("/", { replace: true })
     }
-
+    
+    const changeNoOfResults = (event) => {
+        setResultsPerPage(event.target.value)
+    }
+ 
     return (
     <Container fluid>
         <div className='SearchTop'>
@@ -59,7 +67,20 @@ const SearchResult = (props) => {
         <div style={{ padding: '20px 60px' }}> <hr /></div>
         
         <div className='ListContainer'>
-            <ResultList links = { results }/>
+            <div className='ResultsPerPage'>
+                <p> Search Results Per Page </p>
+                <Form.Select aria-label="Select No of Results" onChange={ changeNoOfResults } className="SelectResults">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </Form.Select>
+            </div>
+
+            <ResultList links = { currentResults }/>
+            <Pagination 
+                resultsPerPage = { resultsPerPage } 
+                results = { results } 
+                setCurrentResults = { setCurrentResults } />
         </div>
         
     </Container>
