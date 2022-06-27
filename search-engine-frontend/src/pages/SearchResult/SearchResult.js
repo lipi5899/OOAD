@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Form } from 'react-bootstrap' 
+import { Container } from 'react-bootstrap' 
 import { Button, Input } from 'antd';   
 import { useLocation, useNavigate } from 'react-router';
 
@@ -9,6 +9,7 @@ import "./SearchResult.css"
 import Logo from '../../assests/logo1.png'
 import axios from 'axios'
 import Server from  '../../resources/sources'
+import TopMenu from '../../components/TopMenu/TopMenu';
 
 const SearchResult = (props) => {
     const location = useLocation()
@@ -16,21 +17,31 @@ const SearchResult = (props) => {
     const [ search, setSearch ] = useState(location.state.val)
     const [ resultsPerPage, setResultsPerPage] = useState(5)
     const [ results, setResults ] = useState([])
+    const [ defaultResults, setDefaultResults ] = useState([])
     const [ currentResults, setCurrentResults ] = useState([])
+    const [ areResultsEmpty, setAreResultsEmpty ] = useState(false)
+    const [ sortMode, setSortMode ] = useState("")
 
     useEffect(() => {
         axios
             .get(Server.baseURL + '/links')
             .then(res => {
-                setResults(res.data)
+                checkIfNull(res.data)
             })
             .catch(err => console.log(err))
-    }, [location])
+    }, [location])    
+
+    useEffect(() => {
+      sortResults(results)
+    }, [sortMode])
+    
 
     const onSearchClick = () => {
         axios
             .get(Server.baseURL + '/links')
-            .then(res => setResults(res.data))
+            .then(res => {
+                checkIfNull(res.data)  
+            })
             .catch(err => console.log(err))
     }
 
@@ -45,36 +56,42 @@ const SearchResult = (props) => {
     const changeNoOfResults = (event) => {
         setResultsPerPage(event.target.value)
     }
- 
-    return (
-    <Container fluid>
-        <div className='SearchTop'>
-            <img src={ Logo } alt="Logo" className="Logo" onClick={ goHome } />
-            <Input 
-                placeholder='Search Here' 
-                value={ search } 
-                onChange={ textValueChange } 
-                className="Input"/>
-        
-            <Button 
-                type="primary" 
-                onClick={ onSearchClick }
-                className="Button">
-                    Search
-            </Button>
-        </div>
 
-        <div style={{ padding: '20px 60px' }}> <hr /></div>
-        
+    const changeSortMode = (event) => {
+        setSortMode(event.target.value)
+    }
+
+    const checkIfNull = (result) => {
+        if(result.length === 0) {
+            setAreResultsEmpty(true)
+        } else {
+            sortResults(result)
+        }       
+    }
+
+    const sortResults = (result) => {
+        switch(sortMode) {
+            case "alphabetical":
+                setDefaultResults([...result])
+                result.sort((a,b) => a.link_name.localeCompare(b.link_name))
+                setResults([...result])
+                break;
+            case "popular":
+                break;
+            case "default":
+                setResults(defaultResults)
+                break;
+            default:
+                setResults(result)
+                break;
+        } 
+    }
+
+    const ListContainer = (
         <div className='ListContainer'>
-            <div className='ResultsPerPage'>
-                <p> Search Results Per Page </p>
-                <Form.Select aria-label="Select No of Results" onChange={ changeNoOfResults } className="SelectResults">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                </Form.Select>
-            </div>
+            <TopMenu 
+                changeNoOfResults = { changeNoOfResults }
+                changeSortMode = { changeSortMode } />
 
             <ResultList links = { currentResults }/>
             <Pagination 
@@ -82,8 +99,36 @@ const SearchResult = (props) => {
                 results = { results } 
                 setCurrentResults = { setCurrentResults } />
         </div>
-        
-    </Container>
+    )
+
+    const EmptyContainer = (
+        <div className='EmptyContainer'>
+            <h5 className='text-muted'>No results found</h5>
+        </div>
+    )
+ 
+    return (
+        <Container fluid>
+            <div className='SearchTop'>
+                <img src={ Logo } alt="Logo" className="Logo" onClick={ goHome } />
+                <Input 
+                    placeholder='Search Here' 
+                    value={ search } 
+                    onChange={ textValueChange } 
+                    className="Input"/>
+            
+                <Button 
+                    type="primary" 
+                    onClick={ onSearchClick }
+                    className="Button">
+                        Search
+                </Button>
+            </div>
+
+            <div style={{ padding: '20px 60px' }}> <hr /></div>
+            
+            {  !areResultsEmpty ? ListContainer : EmptyContainer  }
+        </Container>
     )
 }
 

@@ -1,0 +1,21 @@
+.ResultsPerPage {
+    display: flex;
+    justify-content: right;
+    margin-top: -40px;
+}
+
+.SortMode {
+    display: flex;
+    margin-top: -30px;
+}
+
+.SelectResults, .SelectMode {
+    max-width: 70px;
+    margin-top: -13px;
+    max-height: 40px;
+    margin-left: 10px;
+}
+
+.SelectMode {
+    max-width: 140px;
+}

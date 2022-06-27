@@ -1,6 +1,6 @@
 .Home {
     display: block;
-    padding: 20px 200px;
+    padding: 0px 200px;
 }
 
 .LogoHome  {
@@ -19,4 +19,18 @@
 
 .ButtonHome {
     width: 150px;
+}
+
+.AdminLink {
+    padding: 20px 60px 0px 60px;
+    text-align: right;
+}
+
+.Link {
+    color: rgb(28, 79, 156);
+    cursor: pointer;
+}
+
+.Link:hover {
+    text-decoration: underline;
 }

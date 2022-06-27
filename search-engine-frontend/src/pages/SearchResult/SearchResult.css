@@ -16,8 +16,8 @@
 }
 
 .Logo {
-    width: 70px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
     margin-top: -15px;
     cursor: pointer;
 }
@@ -29,15 +29,7 @@
     width: 120px;
 }
 
-.ResultsPerPage {
-    display: flex;
-    justify-content: right;
-    margin-top: -30px;
-}
-
-.SelectResults {
-    max-width: 70px;
-    margin-top: -25px;
-    max-height: 50px;
-    margin-left: 10px;
+.EmptyContainer {
+    text-align: center;
+    padding: 30px;
 }

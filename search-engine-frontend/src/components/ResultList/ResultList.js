@@ -3,7 +3,7 @@ import ResultListItem from './ResultListItem/ResultListItem'
 
 const ResultList = (props) => {
   return (
-    <div>
+    <div style={{ marginTop: '10px' }}>
       {
         props.links.map((element) => {
           return <ResultListItem 

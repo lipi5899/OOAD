@@ -18,29 +18,38 @@ const Home = () => {
         setSearch(event.target.value)
     }
 
-    return (
-        <Container className='Home'>
-            <div className='LogoContainer'>
-                <img src={ Logo } alt="Logo" className="LogoHome" />
-            </div>
-            
-            <div className='LogoContainer'>
-                <Input 
-                    placeholder='Search Here' 
-                    value={ search } 
-                    onChange={ textValueChange } 
-                    className="Input" />
-            </div>
+    const goToAdminLogin = (event) => {
+        navigate("/admin-login", { replace: true  })
+    }
 
-            <div className='ButtonContainer my-2'>
-               <Button 
-                    variant='outline-primary' 
-                    onClick={ onSearchClick }
-                    size="lg" className='ButtonHome'>
-                        Search
-                </Button>
+    return (
+        <>
+            <div className='AdminLink'>
+                <p className='Link' onClick={ goToAdminLogin }>Admin Login</p>
             </div>
-        </Container>
+            <Container className='Home'>
+                <div className='LogoContainer'>
+                    <img src={ Logo } alt="Logo" className="LogoHome" />
+                </div>
+                
+                <div className='LogoContainer'>
+                    <Input 
+                        placeholder='Search Here' 
+                        value={ search } 
+                        onChange={ textValueChange } 
+                        className="Input" />
+                </div>
+
+                <div className='ButtonContainer my-2'>
+                    <Button 
+                        variant='outline-primary' 
+                        onClick={ onSearchClick }
+                        size="lg" className='ButtonHome'>
+                            Search
+                    </Button>
+                </div>
+            </Container>
+        </>
     )
 }
 

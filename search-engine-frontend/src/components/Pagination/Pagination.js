@@ -26,7 +26,7 @@ const Pagination = ({ resultsPerPage, results, setCurrentResults }) => {
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
                 pageCount={pageCount}
-                previousLabel="<- previous"
+                previousLabel="<- prev"
                 renderOnZeroPageCount={null}
                 containerClassName={"pagination"}
                 previousLinkClassName={"pagination__link"}
