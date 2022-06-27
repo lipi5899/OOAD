@@ -1,11 +1,18 @@
+.HomeContainer {
+    position: relative;
+    height: 100vh;
+}
+
 .Home {
-    display: block;
-    padding: 0px 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
 }
 
 .LogoHome  {
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
 }
 
 .LogoContainer, .ButtonContainer {
@@ -13,12 +20,22 @@
     justify-content: center;
 }
 
+.ButtonContainer {
+    margin-left: 5px;
+}
+
 .Input {
-    max-width: 700px;
+    min-width: 450px!important;
+    border: 1px solid #d9534f!important;
+}
+
+.Input:focus, Input:hover {
+    border: 3px solid #d9534f!important;
 }
 
 .ButtonHome {
     width: 150px;
+    border-radius: 0px!important;
 }
 
 .AdminLink {
@@ -27,7 +44,7 @@
 }
 
 .Link {
-    color: rgb(28, 79, 156);
+    color: #d9534f;
     cursor: pointer;
 }
 

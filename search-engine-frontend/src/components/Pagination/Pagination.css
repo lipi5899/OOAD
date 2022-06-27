@@ -7,22 +7,27 @@
 
 .pagination a {
     padding: 10px;
-    border: 1px solid #0088ff;
-    color: #0275d8;
+    border: 1px solid #d9534f;
+    color: #d9534f;
 }
 
 .pagination a:hover {
-    color: #0275d8;
+    color: #d9534f;
 }
 
 .pagination__link {
     font-weight: bold;
     margin-left: 8px;
+    text-decoration: none;
+}
+
+.pagination__link:hover {
+    text-decoration: underline;
 }
 
 .pagination__link--active a {
     color: #fff;
-    background: #0275d8;
+    background: #d9534f;
 }
 
 .pagination__link--active a:hover {

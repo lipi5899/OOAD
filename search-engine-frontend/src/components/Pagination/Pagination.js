@@ -22,11 +22,11 @@ const Pagination = ({ resultsPerPage, results, setCurrentResults }) => {
         <div style={{ textAlign: 'center', marginTop: '70px' }}>
             <ReactPaginate
                 breakLabel="..."
-                nextLabel="next ->"
+                nextLabel="Next >"
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
                 pageCount={pageCount}
-                previousLabel="<- prev"
+                previousLabel="< Previous"
                 renderOnZeroPageCount={null}
                 containerClassName={"pagination"}
                 previousLinkClassName={"pagination__link"}

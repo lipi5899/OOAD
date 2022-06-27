@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router';
 import ResultList from '../../components/ResultList/ResultList';
 import Pagination from '../../components/Pagination/Pagination'
 import "./SearchResult.css"
-import Logo from '../../assests/logo1.png'
+import Logo from '../../assests/logo4.png'
 import axios from 'axios'
 import Server from  '../../resources/sources'
 import TopMenu from '../../components/TopMenu/TopMenu';
@@ -108,7 +108,7 @@ const SearchResult = (props) => {
     )
  
     return (
-        <Container fluid>
+        <Container fluid className='SearchPage'>
             <div className='SearchTop'>
                 <img src={ Logo } alt="Logo" className="Logo" onClick={ goHome } />
                 <Input 
@@ -118,7 +118,7 @@ const SearchResult = (props) => {
                     className="Input"/>
             
                 <Button 
-                    type="primary" 
+                    type="danger" 
                     onClick={ onSearchClick }
                     className="Button">
                         Search

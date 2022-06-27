@@ -1,3 +1,5 @@
+
+
 .SearchTop {
     padding: 50px 90px 0px 90px;
     display: flex;
@@ -23,7 +25,7 @@
 }
 
 .Button {
-    margin-left: -20px;
+    margin-left: -15px;
     min-height: 50px;
     cursor: pointer;
     width: 120px;

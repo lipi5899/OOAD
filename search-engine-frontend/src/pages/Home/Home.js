@@ -4,7 +4,7 @@ import { Input } from 'antd';
 import { useNavigate } from 'react-router';
 
 import './Home.css'
-import Logo from '../../assests/logo1.png'
+import Logo from '../../assests/logo4.png'
 
 const Home = () => {
     const [ search, setSearch ] = useState('')
@@ -23,7 +23,7 @@ const Home = () => {
     }
 
     return (
-        <>
+        <div className='HomeContainer'>
             <div className='AdminLink'>
                 <p className='Link' onClick={ goToAdminLogin }>Admin Login</p>
             </div>
@@ -42,14 +42,14 @@ const Home = () => {
 
                 <div className='ButtonContainer my-2'>
                     <Button 
-                        variant='outline-primary' 
+                        variant='danger' 
                         onClick={ onSearchClick }
                         size="lg" className='ButtonHome'>
                             Search
                     </Button>
                 </div>
             </Container>
-        </>
+        </div>
     )
 }
 

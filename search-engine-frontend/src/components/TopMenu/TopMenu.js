@@ -11,7 +11,7 @@ const TopMenu = ({ changeNoOfResults, changeSortMode }) => {
                 <Form.Select 
                     aria-label="Sort Mode" 
                     onChange={ changeSortMode } 
-                    className="SelectMode"
+                    className="SelectMode Inputs"
                     defaultValue="none">
                         <option value="default">Default</option>
                         <option value="alphabetical">Alphabetical</option>
@@ -23,7 +23,7 @@ const TopMenu = ({ changeNoOfResults, changeSortMode }) => {
                 <Form.Select 
                     aria-label="Select No of Results" 
                     onChange={ changeNoOfResults } 
-                    className="SelectResults">
+                    className="SelectResults Inputs">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>

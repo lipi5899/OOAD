@@ -16,6 +16,10 @@
     margin-left: 10px;
 }
 
+.Inputs:focus, .Inputs:hover {
+    border: 2px solid #d9534f!important;
+}
+
 .SelectMode {
     max-width: 140px;
 }

@@ -1,0 +1,32 @@
+.PageContainer {
+    min-height: 100vh;
+    position: relative;
+    background-color: #f9f4f4;
+}
+
+.FormContainer {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.InputLogin {
+    border: 1px solid #d9534f!important;
+}
+
+.InputLogin:focus, .InputLogin:hover {
+    border: 3px solid #d9534f!important;
+}
+
+form {
+    background-color: white;
+    min-width: 400px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.4);
+    border: 5px outset;
+}
+
+.LogoLogin  {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+}
