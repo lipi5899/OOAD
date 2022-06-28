@@ -6,6 +6,7 @@ const mongoDB = require('./mongoDBClient');
 const path = require('path');
 
 const links = require('./routes/links');
+const admins = require('./routes/admins');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 app.use('/links', links);
+app.use('/admins', admins)
 
 app.use('/', links);
 app.use((req, res, next) => {
