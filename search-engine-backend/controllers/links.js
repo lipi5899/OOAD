@@ -15,26 +15,21 @@ const getAllLinks = (req, res) => {
 };
 
 const addNewLink = (req, res) => {
-
-
   const newLink = new Links({
     link_name: req.body.link_name,
     link_address: req.body.link_address,
-    description: req.body.description
+    description: req.body.description,
   });
 
   newLink
-  .save()
-  .then(function (links) {
-    res.json({ message: "Success", status: "ok" });
-  })
-  .catch(function (err) {
-    throw err;
-  });
+    .save()
+    .then(function (link) {
+      res.json({ message: "Success", status: "ok" });
+    })
+    .catch(function (err) {
+      throw err;
+    });
 };
-
-
-
 
 module.exports.getAllLinks = getAllLinks;
 module.exports.addNewLink = addNewLink;

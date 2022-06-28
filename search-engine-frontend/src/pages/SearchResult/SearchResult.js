@@ -29,10 +29,12 @@ const SearchResult = (props) => {
                 checkIfNull(res.data)
             })
             .catch(err => console.log(err))
+            // eslint-disable-next-line
     }, [location])    
 
     useEffect(() => {
       sortResults(results)
+      // eslint-disable-next-line
     }, [sortMode])
     
 

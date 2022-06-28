@@ -13,8 +13,16 @@ const LinksSchema = new Schema({
   description: {
     type: String,
     required: true,
+  },
+  hits: {
+    type: Number,
+    default: 0
+  },
+  health: {
+    type: Boolean,
+    default: true
   }
- 
+  
 });
 
 module.exports = mongoose.model("links", LinksSchema);

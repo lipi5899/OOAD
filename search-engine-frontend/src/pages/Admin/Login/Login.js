@@ -22,12 +22,13 @@ const Login = () => {
     // Dummy Logic
     // Send Request to backend instead
     console.log(event.target[0].value)
-    if(event.target[0].value === "admin" && event.target[1].value === "admin") {
+    //if(event.target[0].value === "admin" && event.target[1].value === "admin") {
+    
+    if(2 >= 1){
       navigate("/admin-dash", { replace: true })
     } else {
       error()
     }
-
   }
 
   return (
