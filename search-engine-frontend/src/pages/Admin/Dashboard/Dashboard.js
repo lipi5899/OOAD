@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 import { Popconfirm, Table } from 'antd'
 import axios from 'axios'
 
@@ -10,6 +10,7 @@ import { Button } from 'react-bootstrap'
 
 const Dashboard = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const [ results, setResults ] = useState([])
 
   const actions = {
@@ -25,10 +26,10 @@ const Dashboard = () => {
   const columns = [ dataColumns.title, dataColumns.url, dataColumns.hits, dataColumns.health, actions] 
 
   const handleDelete = (record) => {
-    //Dummy logic
-    console.log(record)
-
-    //Send request to backend
+    axios
+      .delete(Server.baseURL + '/links/delete/' + record._id)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
   }
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const Dashboard = () => {
   return (
     <div className='w-100'>
       <div className='TopBar'>
-        <span>Admin Dashboard</span>
+        <span>{ location.state.username }'s Dashboard</span>
         <span style={{ cursor: 'pointer' }} onClick={ logout }>Logout</span>
       </div>
       <div className='Content'>
@@ -62,7 +63,7 @@ const Dashboard = () => {
           dataSource ={ results }
           expandable = {{
             expandedRowRender: expandableRow,
-            rowExpandable: (record) => record.name !== 'Not Expandable',
+            rowExpandable: (record) => record.link_name !== 'Not Expandable',
           }}
           rowKey = "_id"
           pagination = {{ position: ["topRight", "bottomRight"] }}

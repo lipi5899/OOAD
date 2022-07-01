@@ -14,21 +14,17 @@ import TopMenu from '../../components/TopMenu/TopMenu';
 const SearchResult = (props) => {
     const location = useLocation()
     const navigate = useNavigate()
-    const [ search, setSearch ] = useState(location.state.val)
-    const [ resultsPerPage, setResultsPerPage] = useState(5)
+    
     const [ results, setResults ] = useState([])
     const [ defaultResults, setDefaultResults ] = useState([])
     const [ currentResults, setCurrentResults ] = useState([])
+    const [ search, setSearch ] = useState(location.state.val)
+    const [ resultsPerPage, setResultsPerPage] = useState(5)
     const [ areResultsEmpty, setAreResultsEmpty ] = useState(false)
     const [ sortMode, setSortMode ] = useState("")
 
     useEffect(() => {
-        axios
-            .get(Server.baseURL + '/links')
-            .then(res => {
-                checkIfNull(res.data)
-            })
-            .catch(err => console.log(err))
+        sendRequest(location.state.val)
             // eslint-disable-next-line
     }, [location])    
 
@@ -38,9 +34,11 @@ const SearchResult = (props) => {
     }, [sortMode])
     
 
-    const onSearchClick = () => {
+    const onSearchClick = () => sendRequest(search)
+
+    const sendRequest = (queryString) => {
         axios
-            .get(Server.baseURL + '/links')
+            .post(Server.baseURL + '/links/search', { queryString: queryString })
             .then(res => {
                 checkIfNull(res.data)  
             })
@@ -67,6 +65,7 @@ const SearchResult = (props) => {
         if(result.length === 0) {
             setAreResultsEmpty(true)
         } else {
+            setAreResultsEmpty(false)
             sortResults(result)
         }       
     }
@@ -79,6 +78,8 @@ const SearchResult = (props) => {
                 setResults([...result])
                 break;
             case "popular":
+                result.sort((a,b) => a.hits - b.hits > 0 ? -1 : 1)
+                setResults([...result])
                 break;
             case "default":
                 setResults(defaultResults)

@@ -2,7 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router';
 import { Container, Form, Button } from 'react-bootstrap'
 import { message } from 'antd';
+import axios from 'axios'
 
+import Server from  '../../../resources/sources'
 import './Login.css'
 import Logo from '../../../assests/logo4.png'
 
@@ -19,16 +21,23 @@ const Login = () => {
 
   const formHandler = (event) => {
     event.preventDefault()
-    // Dummy Logic
-    // Send Request to backend instead
-    console.log(event.target[0].value)
-    //if(event.target[0].value === "admin" && event.target[1].value === "admin") {
-    
-    if(2 >= 1){
-      navigate("/admin-dash", { replace: true })
-    } else {
-      error()
+
+    const data = {
+      username: event.target[0].value,
+      password: event.target[1].value
     }
+
+    axios
+      .post(Server.baseURL + '/admins/login', data)
+      .then((res) => {
+        console.log(res)
+        if(res.data.status === "ok") {
+          navigate("/admin-dash", { replace: true, state: { username: res.data.username } })
+        } else {
+          error()
+        }
+      })
+      .catch((err) => console.log(err))   
   }
 
   return (
