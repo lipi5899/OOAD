@@ -9,6 +9,7 @@ Router.post("/search-AND", linksController.getSearchLinksAND);
 Router.post("/search-OR", linksController.getSearchLinksOR);
 Router.post("/search-NOT", linksController.getSearchLinksNOT); 
 Router.post("/add-link", linksController.addNewLink);
-Router.delete("/delete/:id", linksController.deleteLink); 
+Router.put("/update-hits", linksController.updateLinkCount)
+Router.put("/delete", linksController.deleteLink); 
 
 module.exports = Router;

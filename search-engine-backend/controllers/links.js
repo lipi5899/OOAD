@@ -3,7 +3,7 @@ const Links = require("../models/Links");
 
 const getAllLinks = (req, res) => {
   Links
-    .find({}, function (err, results) {
+    .find({ deleted: false }, function (err, results) {
       if (err) {
         throw err;
       } else {
@@ -17,7 +17,7 @@ const getSearchLinks = (req, res) => {
   const queryRegEx = '.*' + queryString + '.*';
 
   Links
-    .find({ link_name: { $regex: queryRegEx, $options: 'i' }}, function(err, results) {
+    .find({ link_name: { $regex: queryRegEx, $options: 'i' }, deleted: 'false' }, function(err, results) {
       if(err) {
         throw err
       } else {
@@ -31,7 +31,7 @@ const getSearchLinksNOT = (req, res) => {
   const queryRegEx = '.*' + queryString + '.*';
 
   Links
-    .find({ link_name: { $not: { $regex: queryRegEx, $options: 'i' }}}, function(err, results) {
+    .find({ link_name: { $not: { $regex: queryRegEx, $options: 'i' }}, deleted: false }, function(err, results) {
       if(err) {
         throw err
       } else {
@@ -47,8 +47,8 @@ const getSearchLinksAND = (req, res) => {
 
   Links.find({
     $and: [
-      { link_name: { $regex: queryRegEx1, options: 'i' }},
-      { link_name: { $regex: queryRegEx2, options: 'i' }}
+      { link_name: { $regex: queryRegEx1, options: 'i' }, deleted: false },
+      { link_name: { $regex: queryRegEx2, options: 'i' }, deleted: false }
     ]
   }, function(err, results) {
     if(err) {
@@ -66,8 +66,8 @@ const getSearchLinksOR = (req, res) => {
 
   Links.find({
     $or: [
-      { link_name: { $regex: queryRegEx1, options: 'i' }},
-      { link_name: { $regex: queryRegEx2, options: 'i' }}
+      { link_name: { $regex: queryRegEx1, options: 'i' }, deleted: false },
+      { link_name: { $regex: queryRegEx2, options: 'i' }, deleted: false }
     ]
   }, function(err, results) {
     if(err) {
@@ -96,10 +96,35 @@ const addNewLink = (req, res) => {
     });
 };
 
+const updateLinkCount = (req, res) => {
+  const id = req.body.id
+
+  Links.updateOne({ _id: id }, {
+    $inc: { hits: 1 }
+  }, function(err, result) {
+    if(err) {
+      throw err
+    } else {
+      res.json(result)
+    }
+  })
+}
+
 const deleteLink = (req, res) => {
-  const id = req.params.id
-  res.json({ id: id })
-  // write delete logic here
+  const id = req.body.id
+  console.log(id)
+  
+  Links.updateOne({ _id: id }, {
+    $set: {
+      deleted: true
+    }
+  }, function(err, result) {
+    if (err) {
+      throw err
+    } else {
+      res.json(result)
+    }
+  })
 }
 
 module.exports.getAllLinks = getAllLinks;
@@ -108,4 +133,5 @@ module.exports.getSearchLinksAND = getSearchLinksAND;
 module.exports.getSearchLinksOR = getSearchLinksOR;
 module.exports.getSearchLinksNOT = getSearchLinksNOT;
 module.exports.addNewLink = addNewLink;
+module.exports.updateLinkCount = updateLinkCount;
 module.exports.deleteLink =  deleteLink;

@@ -27,9 +27,14 @@ const Dashboard = () => {
 
   const handleDelete = (record) => {
     axios
-      .delete(Server.baseURL + '/links/delete/' + record._id)
-      .then((res) => console.log(res))
+      .put(Server.baseURL + '/links/delete/', { id: record._id })
+      .then((res) => updateLinks(record._id))
       .catch((err) => console.log(err))
+  }
+
+  const updateLinks = (id) => {
+    const newResults = results.filter((result) => result._id !== id)
+    setResults(newResults)
   }
 
   useEffect(() => {
@@ -41,7 +46,6 @@ const Dashboard = () => {
       })
       .catch(err => console.log(err))
   }, [])
-  
   
   const logout = () => {
     navigate('/', { replace: true })

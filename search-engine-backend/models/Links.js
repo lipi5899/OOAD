@@ -21,8 +21,11 @@ const LinksSchema = new Schema({
   health: {
     type: Boolean,
     default: true
+  },
+  deleted: {
+    type: Boolean,
+    default: false
   }
-  
 });
 
 module.exports = mongoose.model("links", LinksSchema);

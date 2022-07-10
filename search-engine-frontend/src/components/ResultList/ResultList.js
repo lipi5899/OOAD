@@ -8,6 +8,7 @@ const ResultList = (props) => {
         props.links.map((element) => {
           return <ResultListItem 
                     key={ element._id }
+                    id= { element._id }
                     name={ element.link_name }
                     address={ element.link_address }
                     desc={ element.description } />

@@ -1,16 +1,7 @@
 # OOAD
 
-Our Domain in "Music" for now.
+CS6359-001 : Object Oriented Analysis and Design
 
-Current Tasks
+Team No 5
 
-- Think of a team Name -  TempName  ==> Track Hunter
-- Create Prelimanary report
-- Create Functonal/Non Functional Diagrams 
-- Create UML Diagrams
-	- Use Cases
-	- Sequence
-	- Class
-	- Project Life Cycle
-- Create PPT
-- Create Interim Report 
+Tech Tunes - 
