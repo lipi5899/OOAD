@@ -21,47 +21,49 @@ const SearchResult = (props) => {
     const [ search, setSearch ] = useState(location.state.val)
     const [ resultsPerPage, setResultsPerPage] = useState(5)
     const [ areResultsEmpty, setAreResultsEmpty ] = useState(false)
-    const [ sortMode, setSortMode ] = useState("")
+    const [ sortMode, setSortMode ] = useState("") 
 
     useEffect(() => {
-        sendRequest(location.state.val)
+        searchFor(location.state.val)
             // eslint-disable-next-line
-    }, [location])    
+    }, [location.state.val])    
 
     useEffect(() => {
       sortResults(results)
       // eslint-disable-next-line
     }, [sortMode])
     
+    const selectRequestAPI = (value) =>  {
+        const valueArray = value.split(" ")
+        const valueArrayLowerCase = valueArray.map(val => val.toLowerCase())
 
-    const onSearchClick = () => sendRequest(search)
+        if(valueArrayLowerCase.includes("and")) {
+            return "-AND"
+        } else if(valueArrayLowerCase.includes("or")) {
+            return "-OR"
+        } else if(valueArrayLowerCase.includes("not")) {
+            return "-NOT"
+        } else {
+            return ""
+        }
+    }
 
-    const sendRequest = (queryString) => {
+    const parseData = (string, endpoint) => {
+        return { queryString: string }
+    }
+
+    const searchFor = (queryString) => {
+        const endpoint = selectRequestAPI(queryString)
+        const data = parseData(queryString, endpoint)
+
         axios
-            .post(Server.baseURL + '/links/search', { queryString: queryString })
-            .then(res => {
-                checkIfNull(res.data)  
-            })
+            .post(Server.baseURL + '/links/search' + endpoint, data)                                                                                                                                                                                                                                                                                                                                                                                
+            .then(res => checkIfNull(res.data))  
             .catch(err => console.log(err))
     }
 
-    const textValueChange = (event) => {
-        setSearch(event.target.value)
-    }  
-
-    const goHome = () => {
-        navigate("/", { replace: true })
-    }
-    
-    const changeNoOfResults = (event) => {
-        setResultsPerPage(event.target.value)
-    }
-
-    const changeSortMode = (event) => {
-        setSortMode(event.target.value)
-    }
-
     const checkIfNull = (result) => {
+        console.log(result)
         if(result.length === 0) {
             setAreResultsEmpty(true)
         } else {
@@ -69,7 +71,7 @@ const SearchResult = (props) => {
             sortResults(result)
         }       
     }
-
+        
     const sortResults = (result) => {
         switch(sortMode) {
             case "alphabetical":
@@ -90,6 +92,12 @@ const SearchResult = (props) => {
         } 
     }
 
+    const onSearchClick = () => searchFor(search)
+    const textValueChange = (event) => setSearch(event.target.value)
+    const goHome = () => navigate("/", { replace: true })
+    const changeNoOfResults = (event) => setResultsPerPage(event.target.value)
+    const changeSortMode = (event) => setSortMode(event.target.value)
+                    
     const ListContainer = (
         <div className='ListContainer'>
             <TopMenu 

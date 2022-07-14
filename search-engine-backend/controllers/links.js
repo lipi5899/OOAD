@@ -15,7 +15,7 @@ const getAllLinks = (req, res) => {
 const getSearchLinks = (req, res) => {
   const { queryString } = req.body
   const queryRegEx = '.*' + queryString + '.*';
-
+  console.log(queryString)
   Links
     .find({ link_name: { $regex: queryRegEx, $options: 'i' }, deleted: 'false' }, function(err, results) {
       if(err) {
@@ -24,9 +24,11 @@ const getSearchLinks = (req, res) => {
         res.json(results)
       }
     })
+  console.log("Inside Search")
 }
 
 const getSearchLinksNOT = (req, res) => {
+  /*
   const { queryString } = req.body
   const queryRegEx = '.*' + queryString + '.*';
 
@@ -38,9 +40,12 @@ const getSearchLinksNOT = (req, res) => {
         res.json(results)
       }
     })
+  */
+    console.log("Inside NOT")
 }
 
 const getSearchLinksAND = (req, res) => {
+  /*
   const { queryString1, queryString2 } = req.body
   const queryRegEx1 = '.*' + queryString1 + '.*';
   const queryRegEx2 = '.*' + queryString2 + '.*';
@@ -57,9 +62,12 @@ const getSearchLinksAND = (req, res) => {
       res.json(results)
     }
   })
+  */
+  console.log("Inside AND")
 }
 
 const getSearchLinksOR = (req, res) => {
+  /*
   const { queryString1, queryString2 } = req.body
   const queryRegEx1 = '.*' + queryString1 + '.*';
   const queryRegEx2 = '.*' + queryString2 + '.*';
@@ -76,6 +84,8 @@ const getSearchLinksOR = (req, res) => {
       res.json(results)
     }
   })
+  */
+ console.log("Inside OR")
 }
 
 
@@ -112,7 +122,6 @@ const updateLinkCount = (req, res) => {
 
 const deleteLink = (req, res) => {
   const id = req.body.id
-  console.log(id)
   
   Links.updateOne({ _id: id }, {
     $set: {
