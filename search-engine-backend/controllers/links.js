@@ -15,7 +15,7 @@ const getAllLinks = (req, res) => {
 const getSearchLinks = (req, res) => {
   const { queryString } = req.body
   const queryRegEx = '.*' + queryString + '.*';
-  console.log(queryString)
+  
   Links
     .find({ link_name: { $regex: queryRegEx, $options: 'i' }, deleted: 'false' }, function(err, results) {
       if(err) {
@@ -44,7 +44,6 @@ const getSearchLinksAND = (req, res) => {
   const { queryString1, queryString2 } = req.body
   const queryRegEx1 = '.*' + queryString1 + '.*';
   const queryRegEx2 = '.*' + queryString2 + '.*';
-  console.log(queryRegEx1, queryRegEx2)
 
   Links.find({
     $and: [
