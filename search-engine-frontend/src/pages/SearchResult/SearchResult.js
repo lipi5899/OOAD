@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Container } from 'react-bootstrap' 
-import { Button, Input } from 'antd';   
+import { Container } from 'react-bootstrap'    
 import { useLocation, useNavigate } from 'react-router';
 
-import ResultList from '../../components/ResultList/ResultList';
-import Pagination from '../../components/Pagination/Pagination'
 import "./SearchResult.css"
-import Logo from '../../assests/logo4.png'
 import axios from 'axios'
 import Server from  '../../resources/sources'
-import TopMenu from '../../components/TopMenu/TopMenu';
 
-const SearchResult = (props) => {
+import * as helper from './HelperFunctions'
+import SearchTop from '../../components/SearchResult/SearchTop/SearchTop';
+import EmptyContainer from '../../components/SearchResult/EmptyContainer/EmptyContainer';
+import ListContainer from '../../components/SearchResult/ListContainer/ListContainer';
+
+const SearchResult = () => {
     const location = useLocation()
     const navigate = useNavigate()
     
@@ -32,29 +32,10 @@ const SearchResult = (props) => {
       sortResults(results)
       // eslint-disable-next-line
     }, [sortMode])
-    
-    const selectRequestAPI = (value) =>  {
-        const valueArray = value.split(" ")
-        const valueArrayLowerCase = valueArray.map(val => val.toLowerCase())
-
-        if(valueArrayLowerCase.includes("and")) {
-            return "-AND"
-        } else if(valueArrayLowerCase.includes("or")) {
-            return "-OR"
-        } else if(valueArrayLowerCase.includes("not")) {
-            return "-NOT"
-        } else {
-            return ""
-        }
-    }
-
-    const parseData = (string, endpoint) => {
-        return { queryString: string }
-    }
 
     const searchFor = (queryString) => {
-        const endpoint = selectRequestAPI(queryString)
-        const data = parseData(queryString, endpoint)
+        const endpoint = helper.selectRequestAPI(queryString)
+        const data = helper.parseData(queryString, endpoint)
 
         axios
             .post(Server.baseURL + '/links/search' + endpoint, data)                                                                                                                                                                                                                                                                                                                                                                                
@@ -63,7 +44,6 @@ const SearchResult = (props) => {
     }
 
     const checkIfNull = (result) => {
-        console.log(result)
         if(result.length === 0) {
             setAreResultsEmpty(true)
         } else {
@@ -94,51 +74,31 @@ const SearchResult = (props) => {
 
     const onSearchClick = () => searchFor(search)
     const textValueChange = (event) => setSearch(event.target.value)
-    const goHome = () => navigate("/", { replace: true })
     const changeNoOfResults = (event) => setResultsPerPage(event.target.value)
     const changeSortMode = (event) => setSortMode(event.target.value)
-                    
-    const ListContainer = (
-        <div className='ListContainer'>
-            <TopMenu 
-                changeNoOfResults = { changeNoOfResults }
-                changeSortMode = { changeSortMode } />
-
-            <ResultList links = { currentResults }/>
-            <Pagination 
-                resultsPerPage = { resultsPerPage } 
-                results = { results } 
-                setCurrentResults = { setCurrentResults } />
-        </div>
-    )
-
-    const EmptyContainer = (
-        <div className='EmptyContainer'>
-            <h5 className='text-muted'>No results found</h5>
-        </div>
-    )
- 
+    const goHome = () => navigate("/", { replace: true })
+        
     return (
         <Container fluid className='SearchPage'>
-            <div className='SearchTop'>
-                <img src={ Logo } alt="Logo" className="Logo" onClick={ goHome } />
-                <Input 
-                    placeholder='Search Here' 
-                    value={ search } 
-                    onChange={ textValueChange } 
-                    className="Input"/>
-            
-                <Button 
-                    type="danger" 
-                    onClick={ onSearchClick }
-                    className="Button">
-                        Search
-                </Button>
-            </div>
+            <SearchTop 
+                onSearchClick={ onSearchClick }
+                search = { search }
+                goHome = { goHome }
+                textValueChange = { textValueChange } />
 
             <div style={{ padding: '20px 60px' }}> <hr /></div>
             
-            {  !areResultsEmpty ? ListContainer : EmptyContainer  }
+            {  
+                !areResultsEmpty 
+                ?  <ListContainer 
+                        changeNoOfResults =  { changeNoOfResults }
+                        changeSortMode = { changeSortMode }
+                        currentResults = { currentResults }
+                        resultsPerPage = { resultsPerPage }
+                        results = { results }
+                        setCurrentResults = { setCurrentResults } />
+                : <EmptyContainer />  
+            }
         </Container>
     )
 }

@@ -24,11 +24,9 @@ const getSearchLinks = (req, res) => {
         res.json(results)
       }
     })
-  console.log("Inside Search")
 }
 
 const getSearchLinksNOT = (req, res) => {
-  /*
   const { queryString } = req.body
   const queryRegEx = '.*' + queryString + '.*';
 
@@ -40,20 +38,18 @@ const getSearchLinksNOT = (req, res) => {
         res.json(results)
       }
     })
-  */
-    console.log("Inside NOT")
-}
-
+  }
+  
 const getSearchLinksAND = (req, res) => {
-  /*
   const { queryString1, queryString2 } = req.body
   const queryRegEx1 = '.*' + queryString1 + '.*';
   const queryRegEx2 = '.*' + queryString2 + '.*';
+  console.log(queryRegEx1, queryRegEx2)
 
   Links.find({
     $and: [
-      { link_name: { $regex: queryRegEx1, options: 'i' }, deleted: false },
-      { link_name: { $regex: queryRegEx2, options: 'i' }, deleted: false }
+      { link_name: { $regex: queryRegEx1, $options: 'i' }, deleted: false },
+      { link_name: { $regex: queryRegEx2, $options: 'i' }, deleted: false }
     ]
   }, function(err, results) {
     if(err) {
@@ -62,20 +58,17 @@ const getSearchLinksAND = (req, res) => {
       res.json(results)
     }
   })
-  */
-  console.log("Inside AND")
 }
 
 const getSearchLinksOR = (req, res) => {
-  /*
   const { queryString1, queryString2 } = req.body
   const queryRegEx1 = '.*' + queryString1 + '.*';
   const queryRegEx2 = '.*' + queryString2 + '.*';
 
   Links.find({
     $or: [
-      { link_name: { $regex: queryRegEx1, options: 'i' }, deleted: false },
-      { link_name: { $regex: queryRegEx2, options: 'i' }, deleted: false }
+      { link_name: { $regex: queryRegEx1, $options: 'i' }, deleted: false },
+      { link_name: { $regex: queryRegEx2, $options: 'i' }, deleted: false }
     ]
   }, function(err, results) {
     if(err) {
@@ -84,10 +77,7 @@ const getSearchLinksOR = (req, res) => {
       res.json(results)
     }
   })
-  */
- console.log("Inside OR")
 }
-
 
 const addNewLink = (req, res) => {
   const newLink = new Links({
