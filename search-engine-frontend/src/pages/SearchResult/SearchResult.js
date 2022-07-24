@@ -34,8 +34,9 @@ const SearchResult = () => {
     }, [sortMode])
 
     const searchFor = (queryString) => {
-        const endpoint = helper.selectRequestAPI(queryString)
-        const data = helper.parseData(queryString, endpoint)
+        const filteredString = helper.filterQuery(queryString)
+        const endpoint = helper.selectRequestAPI(filteredString)
+        const data = helper.parseData(filteredString, endpoint)
 
         axios
             .post(Server.baseURL + '/links/search' + endpoint, data)                                                                                                                                                                                                                                                                                                                                                                                

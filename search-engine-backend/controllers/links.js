@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Links = require("../models/Links");
+const SearchQuery = require("../models/SearchQuery");
 
 const getAllLinks = (req, res) => {
   Links
@@ -12,6 +13,31 @@ const getAllLinks = (req, res) => {
     });
 };
 
+const getAllQueries = (req, res) => {
+  SearchQuery
+    .find({}, function (err, results) {
+      if (err) {
+        throw err;
+      } else {
+        res.json(results);
+      }
+    });
+};
+
+const updateQueryCount = (query) => {
+  const query1 = { title: query }
+  const update = { $set: { title: query }, $inc: { hits: 1 } }
+  const options = { upsert: true } 
+  
+  SearchQuery.updateOne(query1, update, options, function(err, res) {
+    if(err) {
+      throw(err) 
+    } else {
+      console.log(res)
+    }
+  })
+}
+
 const getSearchLinks = (req, res) => {
   const { queryString } = req.body
   const queryRegEx = '.*' + queryString + '.*';
@@ -21,6 +47,7 @@ const getSearchLinks = (req, res) => {
       if(err) {
         throw err
       } else {
+        updateQueryCount(queryString)
         res.json(results)
       }
     })
@@ -35,6 +62,7 @@ const getSearchLinksNOT = (req, res) => {
       if(err) {
         throw err
       } else {
+        updateQueryCount(queryString)
         res.json(results)
       }
     })
@@ -54,6 +82,8 @@ const getSearchLinksAND = (req, res) => {
     if(err) {
       throw err
     } else {
+      updateQueryCount(queryString1)
+      updateQueryCount(queryString2)
       res.json(results)
     }
   })
@@ -73,6 +103,8 @@ const getSearchLinksOR = (req, res) => {
     if(err) {
       throw err
     } else {
+      updateQueryCount(queryString1)
+      updateQueryCount(queryString2)
       res.json(results)
     }
   })
@@ -126,6 +158,7 @@ const deleteLink = (req, res) => {
 }
 
 module.exports.getAllLinks = getAllLinks;
+module.exports.getAllQueries = getAllQueries;
 module.exports.getSearchLinks = getSearchLinks;
 module.exports.getSearchLinksAND = getSearchLinksAND;
 module.exports.getSearchLinksOR = getSearchLinksOR;
