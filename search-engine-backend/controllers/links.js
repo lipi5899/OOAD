@@ -32,9 +32,7 @@ const updateQueryCount = (query) => {
   SearchQuery.updateOne(query1, update, options, function(err, res) {
     if(err) {
       throw(err) 
-    } else {
-      console.log(res)
-    }
+    } 
   })
 }
 
